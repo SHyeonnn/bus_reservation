@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<windows.h>
 void print_firstp() {   //첫 화면 출력 함수
@@ -16,31 +15,29 @@ void print_firstp() {   //첫 화면 출력 함수
 	printf("      원하는 서비스의 번호를 입력해 주세요\n\n");
 	printf("                  -> ");
 }
-void print_shuttle() {
+void print_shuttle() {   //셔틀버스 화면 출력 함수
 	printf("\n      =======================================\n");
 	printf("                    셔  틀  버  스  ");
 	printf("\n      =======================================\n\n\n\n\n");
 	printf("         1. 상행 (신창->학교)\n\n\n");
 	printf("         2. 하행 (학교->신창)\n\n\n");
-	printf("         3. 뒤로 가기 \n\n\n");
-	printf("         4. 종료\n\n\n\n\n\n");
+	printf("         3. 종료\n\n\n\n\n\n");
 	printf("      원하는 서비스의 번호를 입력해 주세요\n\n");
 	printf("                  -> ");
 }
-void print_commute() {
+void print_commute() {   //통학버스 화면 출력 함수
 	printf("\n      =======================================\n");
-	printf("                    통  학  버  스  ");
+	printf("                   통  학  버  스  ");
 	printf("\n      =======================================\n\n\n\n\n");
 	printf("         1. 등교\n\n\n");
 	printf("         2. 하교\n\n\n");
-	printf("         3. 뒤로 가기\n\n\n");
-	printf("         4. 종료\n\n\n\n\n\n");
+	printf("         3. 종료\n\n\n\n\n\n");
 	printf("      원하는 서비스의 번호를 입력해 주세요\n\n");
 	printf("                  -> ");
 }
-void print_commute_up() {
+void commute_updown() {   //통학버스 등교 및 하교 선택 출력 함수
 	printf("\n      =======================================\n");
-	printf("                    통  학  버  스  ");
+	printf("                   통  학  버  스  ");
 	printf("\n      =======================================\n\n\n\n\n");
 	printf("         1. 안산\n\n\n");
 	printf("         2. 인천\n\n\n");
@@ -61,66 +58,49 @@ int main(void) {
 	ser.bus_type = 0; ser.shuttle = 0; ser.commute = 0;
 	print_firstp();
 	scanf_s("%d", &ser.bus_type);
-	while (1) {
-		if (ser.bus_type == 1) {
+	if (ser.bus_type == 1) {   //셔틀버스 번호 입력 시
+		system("cls");
+		print_shuttle();
+		scanf_s("%d", &ser.shuttle);
+		switch (ser.shuttle) {
+		case 1:   //상행 번호 입력 시
 			system("cls");
-			print_shuttle();
-			scanf_s("%d", &ser.shuttle);
-			switch (ser.shuttle) {
-			case 1:
-				system("cls");
-				/*상행코드작성*/
-			case 2:
-				system("cls");
-				/*하행코드작성*/
-			case 3:
-				system("cls");
-				ser.bus_type = 0;
-				break;
-			case 4:
-				system("cls");
-				exit(1);
-				system("cls");
-				break;
-			}
-			if (ser.bus_type == 0) {
-				print_firstp();
-				scanf_s("%d", &ser.bus_type);
-			}
-		}
-		if (ser.bus_type == 2) {
+			/*상행 코드 작성*/
+		case 2:   //하행 번호 입력 시
 			system("cls");
-			print_commute();
-			scanf_s("%d", &ser.commute);
-			switch (ser.commute) {
-			case 1:
-				system("cls");
-				void print_commute_up();
-
-
-
-			case 2:
-				system("cls");
-				/*하교작성*/
-			case 3:
-				system("cls");
-				ser.bus_type = 0;
-				break;
-			case 4:
-				system("cls");
-				exit(1);
-				system("cls");
-				break;
-			}
-			if (ser.bus_type == 0) {
-				print_firstp();
-				scanf_s("%d", &ser.bus_type);
-			}
+			/*하행 코드 작성*/
+		case 3:   //종료 번호 입력 시
+			system("cls");
+			exit(1);
+			system("cls");
+			break;
 		}
-		if (ser.bus_type == 3) {
-				system("cls");
-				exit(1);
-				system("cls");
+	}
+	else if (ser.bus_type == 2) {   //통학버스 번호 입력 시
+		system("cls");
+		print_commute();
+		scanf_s("%d", &ser.commute);
+		switch (ser.commute) {
+		case 1:   //등교 번호 입력 시
+			system("cls");
+			commute_updown();
+			/*등교 코드 작성*/
+			break;
+		case 2:   //하교 번호 입력 시
+			system("cls");
+			commute_updown();
+			/*하교 코드 작성*/
+			break;
+		case 3:   //종료 번호 입력 시
+			system("cls");
+			exit(1);
+			system("cls");
+			break;
 		}
+	}
+	else if (ser.bus_type == 3) {   //종료 번호 입력 시
+		system("cls");
+		exit(1);
+		system("cls");
 	}
 }
