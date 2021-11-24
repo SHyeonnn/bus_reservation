@@ -14,7 +14,7 @@ int main(void)
 	{
 		printf("잘못된 입력1\n");
 		exit(1);
-	} 
+	}
 	printf("지하철 시간 입력 시, 오후 시간은 12를 더해 입력해 주세요.\n");
 	printf("지하철 하차 시간을 입력해주세요 (시 분) -> ");
 	scanf("%d %d", &subway_h, &subway_m);
@@ -41,7 +41,7 @@ int main(void)
 		printf("잘못된 입력1\n");
 		exit(1);
 	}
-	
+
 	fclose(fp1);
 
 	return 0;
