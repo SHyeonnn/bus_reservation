@@ -8,6 +8,7 @@ int main(void)
 {
 	FILE *fp = NULL;
 	int list[10000] = { 0 };
+	system("mode con:cols=50 lines=40");   //콘솔창 크기 조절
 
 	while (1)
 	{
@@ -28,9 +29,8 @@ int main(void)
 			key = get_trans_time();  // 이 함수는 시간과 분을 입력받고 시간에 *60을 하고 분을 더해 반환하는 함수
 			search_bus(list, SIZE, key);  // 이 함수는 가장 가까운 버스가 몇번째 배열인지 순차탐색하는 함수
 			break;
-
 		case 2:
-			fp = fopen("bus.txt", "r"); //폴더 오픈
+			fp = fopen("bus.txt", "a+"); //폴더 오픈
 			for (int i = 0; i < SIZE; i++)
 			{
 				printf("%d시 %d 분\n", list[i] / 60, list[i] % 60); //리스트를 사이즈만큼 출력
@@ -38,14 +38,6 @@ int main(void)
 			fclose(fp); //폴더닫기
 			break;
 		case 3:
-			fp = fopen("schbus.txt", "r");
-			for (int i = 0; i < SIZE; i++)
-			{
-				printf("%d시 %d 분\n", list[i] / 60, list[i] % 60);
-			}
-			fclose(fp);
-			break;
-		case 4:
 			exit(1);
 			break;
 		default:
@@ -54,11 +46,10 @@ int main(void)
 	}
 }
 int menu() {
-	printf("===============================================\n\n");
+	printf("=============== < 등 교 버 스 > ===============\n\n");
 	printf(" 1 입력된 시간에서 가장 가까운 버스시간 보기\n");
 	printf(" 2 버스 시간표 출력하기 \n");
-	printf(" 3 학내순한 버스 위치 조회( 오전 8~11 운행 )");
-	printf(" 4 종료 \n\n");
+	printf(" 3 종료 \n\n");
 	printf("===============================================\n");
 	printf("선택 : ");
 	int choice;
@@ -66,7 +57,7 @@ int menu() {
 	return choice;
 }
 int get_trans_time(void) {    //시간과 분을 입력받고 시간에 *60을 하고 분을 더해 반환하는 함수
-	printf("시간을 입력하세요 :  시 분\b\b\b\b\b\b\b");
+	printf("시간을 입력하세요 (시 분) : ");
 	int h, m, key;
 	scanf("%d %d", &h, &m);  //시간과 분을 띄어쓰기 하나로 구분
 	return key = h * 60 + m;
