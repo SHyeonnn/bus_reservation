@@ -6,7 +6,6 @@
 #include<stdlib.h>
 #include <io.h>		//access
 #include <windows.h>
-
 #define MAX 255
 #pragma warning(disable : 4996)
 
@@ -282,18 +281,15 @@ int reservation_bus(struct user* u) {
 		u->cash -= 6000;
 		u->num_ticket++;
 
-
 		modify_profile(u);
 		GetDateTime(datetime);
 		fprintf(fp, "%s,%d,%d,%s\n", datetime, reservation_day, seat, bus_cate);
 		printf("잔액은 %d원입니다.\n", u->cash);
-
 	}
 	else {
 		printf("잔액이 부족합니다.\n");
 	}
 	printf("-------------------------------\n");
-
 }
 int check_bus(struct user* u) {
 	FILE* fp;
@@ -328,14 +324,12 @@ int check_bus(struct user* u) {
 				p = strtok(NULL, ",");
 
 				count++;
-
 			}
 			if (count == 2) {
 				printf("좌석 번호 : %s\n", p);
 				p = strtok(NULL, ",");
 
 				count++;
-
 			}
 			if (count == 3) {
 				printf("구분 : %s\n", p);
@@ -343,7 +337,6 @@ int check_bus(struct user* u) {
 				printf("-------------------------------\n");
 
 			}
-
 			total++;
 		}
 	}
