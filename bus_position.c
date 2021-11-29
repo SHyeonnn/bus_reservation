@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #pragma warning(disable: 4996)
+void go_school();
 int main() {
     int total = 0;
     int now = 0;
@@ -15,7 +16,7 @@ int main() {
         tm.tm_hour, tm.tm_min, tm.tm_sec);
 
     if (total >= 390 && total <= 450) {
-        printf("등교 통학 버스 운행중입니다.\n");
+        printf("등교 통학 버스 운행 중입니다.\n");
         printf("----------------------------\n");
         now = total - 390;
         now_case = (int)now / 10;
@@ -54,7 +55,7 @@ int main() {
 
     }
     else if (total <= 1170 && total >= 1110) {
-        printf("하교 통학 버스 운행중입니다.\n");
+        printf("하교 통학 버스 운행 중입니다.\n");
         printf("----------------------------\n");
         total = tm.tm_hour * 60 + tm.tm_min;
         now = total - 1110;
