@@ -15,6 +15,11 @@ struct user {
 	int cash;
 	int num_ticket;
 };
+struct service {   //사용자의 메뉴얼 선택 변수들을 정의하기 위한 구조체
+	int bus_type; //버스 종류 변수
+	int shuttle;  //셔틀 버스 내용 세분화를 위한 변수
+	int commute;  //통학 버스 내용 세분화를 위한 변수
+};
 void RemoveScrollbar() //콘솔창의 스크롤바 삭제 함수
 {
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -26,6 +31,115 @@ void RemoveScrollbar() //콘솔창의 스크롤바 삭제 함수
 	 info.srWindow.Bottom - info.srWindow.Top + 1
 	};
 	SetConsoleScreenBufferSize(handle, new_size);
+}
+void print_firstp() {   //첫 화면 출력 함수
+	printf("\n      =======================================\n");
+	printf("         ┏━━━┓  ┏┓     ┏┓ ┏┓┏┓ ┏┓  ┏━━━┓\n");
+	printf("        ┃  ━  ┃ ┃┃     ┃┃ ┃┗┛┃┏┛┃ ┏┛┏━┓┗┓ \n");
+	printf("         ┗━━━┛  ┃┃     ┃┃ ┃┏┓┃┗┓┃ ┗━┛ ┗━┛\n");
+	printf("        ┏━━━━┓  ┃ ━━━┓ ┃┃ ┃┗┛┃ ┃┃ ┏━━━━━┓\n");
+	printf("        ┗┓┏┓┏┛  ┗━━━━┛ ┗┛ ┗━━┛ ┗┛ ┗━━━━━┛\n");
+	printf("      =======================================\n");
+	printf("     ♡순천향대 학생들을 위한 버스 서비스♡\n\n\n\n\n\n");
+	printf("         1. 셔틀 버스\n\n\n");
+	printf("         2. 통학 버스\n\n\n");
+	printf("         3. 종료\n\n\n\n\n\n");
+	printf("      원하는 서비스의 번호를 입력해 주세요\n\n");
+	printf("                   -> ");
+}
+void print_shuttle() {   //셔틀버스 화면 출력 함수
+	printf("\n      =======================================\n");
+	printf("                    셔  틀  버  스  ");
+	printf("\n      =======================================\n\n\n\n\n");
+	printf("         1. 상행 (신창역->학교)\n\n\n");
+	printf("         2. 하행 (학교->신창역)\n\n\n");
+	printf("         3. 종료\n\n\n\n\n\n");
+	printf("      원하는 서비스의 번호를 입력해 주세요\n\n");
+	printf("                   -> ");
+}
+void print_commute() {   //통학버스 화면 출력 함수
+	printf("\n      =======================================\n");
+	printf("                   통  학  버  스  ");
+	printf("\n      =======================================\n\n\n\n");
+	printf("         1. 로그인 실행\n\n\n");
+	printf("         2. 종료\n\n\n");
+	printf("       원하는 서비스의 번호를 입력해 주세요\n\n ");
+	printf("                   -> ");
+}
+int menu1() {   //셔틀(상행)버스 메뉴 선택 출력 함수
+	printf("\n================ < 상 행 버 스 > =================");
+	printf("\n\n                 (신창역 -> 학교)\n\n");
+	printf("\n\n  1. 입력된 시간에서 가장 가까운 버스 시간 보기\n\n");
+	printf("  2. 버스 전체 시간표 출력하기 \n\n");
+	printf("  3. 버스 위치 검색하기\n\n");
+	printf("  4. 종료 \n\n\n");
+	printf("==================================================\n\n");
+	printf("       원하는 서비스의 번호를 입력해 주세요\n\n ");
+	printf("                   -> ");
+	int choice;
+	scanf("%d", &choice);
+	return choice;
+}
+int menu2() {
+	printf("\n================ < 하 행 버 스 > =================");
+	printf("\n\n                 (학교 -> 신창역)\n\n");
+	printf("\n\n  1. 입력된 시간에서 가장 가까운 버스 시간 보기\n\n");
+	printf("  2. 버스 전체 시간표 출력하기 \n\n");
+	printf("  3. 종료 \n\n\n");
+	printf("==================================================\n\n");
+	printf("       원하는 서비스의 번호를 입력해 주세요\n\n ");
+	printf("                   -> ");
+	int choice;
+	scanf("%d", &choice);
+	return choice;
+}
+int get_trans_time(void) {    //시간과 분을 입력받고 시간에 *60을 하고 분을 더해 반환하는 함수
+	printf("\n\n\n      시간을 입력하세요 (시 분) : ");
+	int h, m, key;
+	scanf("%d %d", &h, &m);  //시간과 분을 띄어쓰기로 구분
+	return key = h * 60 + m;
+}
+void search_bus(int list[], int n, int key)  //가장 가까운 버스가 몇 번째 배열인지 순차탐색하는 함수
+{
+	int i = 0;
+	int o_key = key; // 원본 키를 o_key로 복사한다
+	while (list[i] != key)
+	{
+		for (i = 0; i < n; i++) { //n(SIZE)까지 배열을 비교
+			if (key == list[i]) { //키랑 list[i]가 같으면 출력 후 종료
+				printf("\n\n        가장 가까운 버스는 %d시 %d분입니다\n\n", list[i] / 60, list[i] % 60);
+				printf("           대기 시간은 %d시간 %d분입니다\n\n\n\n", (key - o_key) / 60, (key - o_key) % 60);
+				return 0;
+			}
+		}
+		key = key + 1; //가장 가까운 list[i]를 못찾으면 key에 1을 합함
+		if (key > 14400) { //키가 24*60을 넘어가면 시간 오류 출력 후 종료
+			printf("\n\n           잘못된 시간이 입력되었습니다\n\n");
+			printf("              선택창을 재실행합니다\n\n");
+			Sleep(1500);
+			system("cls");
+			return 0;
+		}
+	}
+}
+void count(int x, int y) //학내순환 버스 위치를 출력하는 함수
+{
+	if (x >= y && y <= x + 2)
+		printf("\n\n     입력된 시간의 버스 위치는 신창역입니다\n");
+	else if (x + 3 == y)
+		printf("\n\n     입력된 시간의 버스 위치는 후문입니다\n");
+	else if (x + 4 == y)
+		printf("\n\n     입력된 시간의 버스 위치는 향설 3관입니다\n");
+	else if (x + 5 == y)
+		printf("\n\n     입력된 시간의 버스 위치는 향설 2관입니다\n");
+	else if (x + 6 == y)
+		printf("\n\n입력된 시간의 버스 위치는 향설기념중앙도서관입니다\n");
+	else if (x + 7 == y)
+		printf("\n\n     입력된 시간의 버스 위치는 정문입니다\n");
+	else if (x + 8 >= y && y <= x + 12)
+		printf("\n\n     입력된 시간의 버스 위치는 신창역입니다\n");
+	else
+		printf("\n\n        운행 중인 학내순환 버스가 없습니다\n\n");
 }
 void modify_profile(struct user* u) {
 	FILE* fp;
@@ -328,9 +442,9 @@ int check_bus(struct user* u) {
 	strcat(filename, "/");
 	strcat(filename, "bus.csv");
 	fp = fopen(filename, "r");
-	printf("\n-----------------------------------------------\n");
+	printf("\n-------------------------------------------------\n");
 	printf("\n         총 %d건의 예매 내역이 존재합니다\n", u->num_ticket);
-	printf("\n-----------------------------------------------\n\n");
+	printf("\n-------------------------------------------------\n\n");
 
 	if (fp != NULL)
 	{
@@ -408,122 +522,7 @@ int login(struct user* u) {
 		return 1;
 	}
 }
-void count(int x, int y) //학내순환 버스 위치를 출력하는 함수
-{
-	if (x >= y && y <= x + 2)
-		printf("\n\n     입력된 시간의 버스 위치는 신창역입니다\n");
-	else if (x + 3 == y)
-		printf("\n\n     입력된 시간의 버스 위치는 후문입니다\n");
-	else if (x + 4 == y)
-		printf("\n\n     입력된 시간의 버스 위치는 향설 3관입니다\n");
-	else if (x + 5 == y)
-		printf("\n\n     입력된 시간의 버스 위치는 향설 2관입니다\n");
-	else if (x + 6 == y)
-		printf("\n\n입력된 시간의 버스 위치는 향설기념중앙도서관입니다\n");
-	else if (x + 7 == y)
-		printf("\n\n     입력된 시간의 버스 위치는 정문입니다\n");
-	else if (x + 8 >= y && y <= x + 12)
-		printf("\n\n     입력된 시간의 버스 위치는 신창역입니다\n");
-	else
-		printf("\n\n        운행 중인 학내순환 버스가 없습니다\n\n");
-}
-void print_firstp() {   //첫 화면 출력 함수
-	printf("\n      =======================================\n");
-	printf("         ┏━━━┓  ┏┓     ┏┓ ┏┓┏┓ ┏┓  ┏━━━┓\n");
-	printf("        ┃  ━  ┃ ┃┃     ┃┃ ┃┗┛┃┏┛┃ ┏┛┏━┓┗┓ \n");
-	printf("         ┗━━━┛  ┃┃     ┃┃ ┃┏┓┃┗┓┃ ┗━┛ ┗━┛\n");
-	printf("        ┏━━━━┓  ┃ ━━━┓ ┃┃ ┃┗┛┃ ┃┃ ┏━━━━━┓\n");
-	printf("        ┗┓┏┓┏┛  ┗━━━━┛ ┗┛ ┗━━┛ ┗┛ ┗━━━━━┛\n");
-	printf("      =======================================\n");
-	printf("     ♡순천향대 학생들을 위한 버스 서비스♡\n\n\n\n\n\n");
-	printf("         1. 셔틀 버스\n\n\n");
-	printf("         2. 통학 버스\n\n\n");
-	printf("         3. 종료\n\n\n\n\n\n");
-	printf("      원하는 서비스의 번호를 입력해 주세요\n\n");
-	printf("                   -> ");
-}
-void print_shuttle() {   //셔틀버스 화면 출력 함수
-	printf("\n      =======================================\n");
-	printf("                    셔  틀  버  스  ");
-	printf("\n      =======================================\n\n\n\n\n");
-	printf("         1. 상행 (신창역->학교)\n\n\n");
-	printf("         2. 하행 (학교->신창역)\n\n\n");
-	printf("         3. 종료\n\n\n\n\n\n");
-	printf("      원하는 서비스의 번호를 입력해 주세요\n\n");
-	printf("                   -> ");
-}
-void print_commute() {   //통학버스 화면 출력 함수
-	printf("\n      =======================================\n");
-	printf("                   통  학  버  스  ");
-	printf("\n      =======================================\n\n\n\n");
-	printf("         1. 로그인 실행\n\n\n");
-	printf("         2. 종료\n\n\n");
-	printf("       원하는 서비스의 번호를 입력해 주세요\n\n ");
-	printf("                   -> ");
-}
-int menu1() {   //셔틀(상행)버스 메뉴 선택 출력 함수
-	printf("\n================ < 상 행 버 스 > =================");
-	printf("\n\n                 (신창역 -> 학교)\n\n");
-	printf("\n\n  1. 입력된 시간에서 가장 가까운 버스 시간 보기\n\n");
-	printf("  2. 버스 전체 시간표 출력하기 \n\n");
-	printf("  3. 버스 위치 검색하기\n\n");
-	printf("  4. 종료 \n\n\n");
-	printf("==================================================\n\n");
-	printf("       원하는 서비스의 번호를 입력해 주세요\n\n ");
-	printf("                   -> ");
-	int choice;
-	scanf("%d", &choice);
-	return choice;
-}
-int menu2() {
-	printf("\n================ < 하 행 버 스 > =================");
-	printf("\n\n                 (학교 -> 신창역)\n\n");
-	printf("\n\n  1. 입력된 시간에서 가장 가까운 버스 시간 보기\n\n");
-	printf("  2. 버스 전체 시간표 출력하기 \n\n");
-	printf("  3. 종료 \n\n\n");
-	printf("==================================================\n\n");
-	printf("       원하는 서비스의 번호를 입력해 주세요\n\n ");
-	printf("                   -> ");
-	int choice;
-	scanf("%d", &choice);
-	return choice;
-}
-int get_trans_time(void) {    //시간과 분을 입력받고 시간에 *60을 하고 분을 더해 반환하는 함수
-	printf("\n\n\n      시간을 입력하세요 (시 분) : ");
-	int h, m, key;
-	scanf("%d %d", &h, &m);  //시간과 분을 띄어쓰기로 구분
-	return key = h * 60 + m;
-}
-void search_bus(int list[], int n, int key)  //가장 가까운 버스가 몇 번째 배열인지 순차탐색하는 함수
-{
-	int i = 0;
-	int o_key = key; // 원본 키를 o_key로 복사한다
-	while (list[i] != key)
-	{
-		for (i = 0; i < n; i++) { //n(SIZE)까지 배열을 비교
-			if (key == list[i]) { //키랑 list[i]가 같으면 출력 후 종료
-				printf("\n\n        가장 가까운 버스는 %d시 %d분입니다\n\n", list[i] / 60, list[i] % 60);
-				printf("           대기 시간은 %d시간 %d분입니다\n\n\n\n", (key - o_key) / 60, (key - o_key) % 60);
-				return 0;
-			}
-		}
-		key = key + 1; //가장 가까운 list[i]를 못찾으면 key에 1을 합함
-		if (key > 14400) { //키가 24*60을 넘어가면 시간 오류 출력 후 종료
-			printf("\n\n           잘못된 시간이 입력되었습니다\n\n");
-			printf("              선택창을 재실행합니다\n\n");
-			Sleep(1500);
-			system("cls");
-			return 0;
-		}
-	}
-}
-
-struct service {   //사용자의 메뉴얼 선택 변수들을 정의하기 위한 구조체
-	int bus_type; //버스 종류 변수
-	int shuttle;  //셔틀 버스 내용 세분화를 위한 변수
-	int commute;  //통학 버스 내용 세분화를 위한 변수
-};
-int main(void) {
+int main(void) {   //메인함수 시작
 	system("mode con:cols=50 lines=40");   //콘솔창 크기 조절
 	struct user u;
 	int menu_input = 0;
@@ -624,7 +623,6 @@ int main(void) {
 							printf("\n\n\n\n              프로그램을 종료합니다\n\n\n");
 							Sleep(1000);
 							exit(1);
-							break;
 						default:
 							RemoveScrollbar();
 							system("cls");
@@ -766,6 +764,12 @@ int main(void) {
 						}
 					}
 				}
+				else {
+					printf("              메인화면을 재실행합니다\n\n");
+					Sleep(1500);
+					system("cls");
+				}
+				break;
 			case 2:   //종료 번호 입력 시
 				system("cls");
 				printf("\n\n\n\n              프로그램을 종료합니다\n\n\n");
